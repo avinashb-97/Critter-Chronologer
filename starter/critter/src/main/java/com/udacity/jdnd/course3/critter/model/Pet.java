@@ -4,6 +4,7 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pet {
@@ -26,6 +27,9 @@ public class Pet {
 
     @Column(length = 500)
     private String notes;
+
+    @ManyToMany(mappedBy = "pets")
+    private List<Schedule> schedules;
 
     public long getId() {
         return id;

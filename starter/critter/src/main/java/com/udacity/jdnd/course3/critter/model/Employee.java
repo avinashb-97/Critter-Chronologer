@@ -4,6 +4,7 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,6 +24,9 @@ public class Employee {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private Set<DayOfWeek> daysAvailable;
+
+    @ManyToMany(mappedBy = "employees")
+    private List<Schedule> schedules;
 
     public long getId() {
         return id;
