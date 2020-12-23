@@ -46,7 +46,7 @@ public class EmployeeService {
         List<Employee> resultEmployees = new ArrayList<>();
         for (Employee employee : employees)
         {
-            if(!resultEmployees.contains(employee) && employee.getSkills().equals(skillsNeeded))
+            if(!resultEmployees.contains(employee) && employee.getSkills().containsAll(skillsNeeded))
             {
                 resultEmployees.add(employee);
             }

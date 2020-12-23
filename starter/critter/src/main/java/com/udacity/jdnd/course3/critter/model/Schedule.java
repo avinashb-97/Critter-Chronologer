@@ -10,7 +10,7 @@ public class Schedule {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToMany
     @JoinTable(
@@ -30,7 +30,7 @@ public class Schedule {
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private Set<EmployeeSkill> skills;
+    private Set<EmployeeSkill> activities;
 
     private LocalDate date;
 
@@ -58,12 +58,12 @@ public class Schedule {
         this.employees = employees;
     }
 
-    public Set<EmployeeSkill> getSkills() {
-        return skills;
+    public Set<EmployeeSkill> getActivities() {
+        return activities;
     }
 
-    public void setSkills(Set<EmployeeSkill> skills) {
-        this.skills = skills;
+    public void setActivities(Set<EmployeeSkill> activities) {
+        this.activities = activities;
     }
 
     public LocalDate getDate() {
