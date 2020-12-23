@@ -1,6 +1,12 @@
-package com.udacity.jdnd.course3.critter.pet;
+package com.udacity.jdnd.course3.critter.dto;
+
+import com.udacity.jdnd.course3.critter.model.Pet;
+import com.udacity.jdnd.course3.critter.model.PetType;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the form that pet request and response data takes. Does not map
@@ -60,5 +66,30 @@ public class PetDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public static Pet convertPetDTOtoEntity(PetDTO petDTO)
+    {
+        Pet pet = new Pet();
+        BeanUtils.copyProperties(petDTO, pet);
+        return pet;
+    }
+
+    public static PetDTO convertEntitytoPetDTO(Pet pet)
+    {
+        PetDTO petDTO = new PetDTO();
+        BeanUtils.copyProperties(pet, petDTO);
+        petDTO.setOwnerId(pet.getCustomer().getId());
+        return petDTO;
+    }
+
+    public static List<PetDTO> convertEntityListToPetDTOList(List<Pet> pets)
+    {
+        List<PetDTO> petDTOS = new ArrayList<>();
+        for (Pet pet : pets)
+        {
+            petDTOS.add(PetDTO.convertEntitytoPetDTO(pet));
+        }
+        return petDTOS;
     }
 }

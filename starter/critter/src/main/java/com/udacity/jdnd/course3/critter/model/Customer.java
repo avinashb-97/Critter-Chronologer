@@ -3,29 +3,26 @@ package com.udacity.jdnd.course3.critter.model;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Pet {
+public class Customer {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    private PetType type;
-
     @Nationalized
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private Customer customer;
-
-    private LocalDate birthDate;
+    private String phoneNumber;
 
     @Column(length = 500)
     private String notes;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+    private List<Pet> pets;
 
     public long getId() {
         return id;
@@ -33,14 +30,6 @@ public class Pet {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public PetType getType() {
-        return type;
-    }
-
-    public void setType(PetType type) {
-        this.type = type;
     }
 
     public String getName() {
@@ -51,20 +40,12 @@ public class Pet {
         this.name = name;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getNotes() {
@@ -73,5 +54,18 @@ public class Pet {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPet(Pet pet)
+    {
+        if(pets == null)
+        {
+            pets = new ArrayList<>();
+        }
+        pets.add(pet);
     }
 }

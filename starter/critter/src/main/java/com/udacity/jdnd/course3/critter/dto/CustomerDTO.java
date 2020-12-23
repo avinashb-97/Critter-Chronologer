@@ -1,4 +1,7 @@
-package com.udacity.jdnd.course3.critter.user;
+package com.udacity.jdnd.course3.critter.dto;
+
+import com.udacity.jdnd.course3.critter.model.Customer;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 
@@ -51,5 +54,19 @@ public class CustomerDTO {
 
     public void setPetIds(List<Long> petIds) {
         this.petIds = petIds;
+    }
+
+    public static CustomerDTO convertEntityToCustomerDTO(Customer customer)
+    {
+        CustomerDTO customerDTO = new CustomerDTO();
+        BeanUtils.copyProperties(customer, customerDTO);
+        return customerDTO;
+    }
+
+    public static Customer convertCustomerDTOtoEntity(CustomerDTO customerDTO)
+    {
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerDTO, customer);
+        return customer;
     }
 }
