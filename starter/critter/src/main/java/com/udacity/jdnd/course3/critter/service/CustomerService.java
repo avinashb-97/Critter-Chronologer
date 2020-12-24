@@ -42,10 +42,9 @@ public class CustomerService {
         return customer;
     }
 
-    public Customer getCustomerByPetId(Long petId)
-    {
+    public Customer getCustomerByPetId(Long petId) {
         Pet pet = petService.findPetById(petId);
         return customerRepository.findByPets(pet)
-                .orElseThrow(()->new CustomerNotFoundException("Customer Not Found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
     }
 }

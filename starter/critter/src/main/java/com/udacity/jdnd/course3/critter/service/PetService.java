@@ -58,6 +58,7 @@ public class PetService {
         oldPet.setNotes(pet.getNotes());
         oldPet.setBirthDate(pet.getBirthDate());
         oldPet.setNotes(pet.getNotes());
+        oldPet.setType(pet.getType());
         Customer customer = oldPet.getCustomer();
         if(oldPet.getCustomer().getId() != customerId)
         {
