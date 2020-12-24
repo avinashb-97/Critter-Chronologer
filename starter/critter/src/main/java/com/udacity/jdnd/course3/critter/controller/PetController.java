@@ -47,4 +47,18 @@ public class PetController {
         return PetDTO.convertEntityListToPetDTOList(petList);
     }
 
+    @DeleteMapping("/{petId}")
+    public void deletePet(@PathVariable long petId)
+    {
+        petService.deletePet(petId);
+    }
+
+    @PutMapping("/{petId}")
+    public PetDTO updatePet(@PathVariable long petId, @RequestBody PetDTO petDTO)
+    {
+        Pet pet = PetDTO.convertPetDTOtoEntity(petDTO);
+        pet = petService.updatePet(petId, petDTO.getOwnerId(), pet);
+        return PetDTO.convertEntitytoPetDTO(pet);
+    }
+
 }

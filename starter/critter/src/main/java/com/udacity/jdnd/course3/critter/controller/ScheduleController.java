@@ -6,6 +6,7 @@ import com.udacity.jdnd.course3.critter.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,22 +27,28 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public List<ScheduleDTO> getAllSchedules() {
-        throw new UnsupportedOperationException();
+    public List<ScheduleDTO> getAllSchedules()
+    {
+        List<Schedule> schedules = scheduleService.getAllSchedules();
+        return ScheduleDTO.convertEntityListToScheduleDTOList(schedules);
     }
 
     @GetMapping("/pet/{petId}")
-    public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId) {
-        throw new UnsupportedOperationException();
+    public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId)
+    {
+        List<Schedule> schedules =  scheduleService.getScheduleForPet(petId);
+        return ScheduleDTO.convertEntityListToScheduleDTOList(schedules);
     }
 
     @GetMapping("/employee/{employeeId}")
     public List<ScheduleDTO> getScheduleForEmployee(@PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        List<Schedule> schedules =  scheduleService.getScheduleForEmployee(employeeId);
+        return ScheduleDTO.convertEntityListToScheduleDTOList(schedules);
     }
 
     @GetMapping("/customer/{customerId}")
     public List<ScheduleDTO> getScheduleForCustomer(@PathVariable long customerId) {
-        throw new UnsupportedOperationException();
+        List<Schedule> schedules =  scheduleService.getScheduleForCustomer(customerId);
+        return ScheduleDTO.convertEntityListToScheduleDTOList(schedules);
     }
 }

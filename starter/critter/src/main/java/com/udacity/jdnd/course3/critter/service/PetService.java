@@ -22,9 +22,11 @@ public class PetService {
 
     public Pet savePet(Pet pet, Long customerId)
     {
-        Customer customer = customerService.addPet(pet, customerId);
+        Customer customer = customerService.getCustomerById(customerId);
         pet.setCustomer(customer);
-        return petRepository.save(pet);
+        pet = petRepository.save(pet);
+        customerService.addPet(pet, customerId);
+        return pet;
     }
 
     public List<Pet> getAllPets()
@@ -43,4 +45,31 @@ public class PetService {
         return petRepository.findPetsByCustomerId(ownerId);
     }
 
+    public void deletePet(Long petId)
+    {
+        Pet pet = findPetById(petId);
+        petRepository.delete(pet);
+    }
+
+    public Pet updatePet(long petId, long customerId, Pet pet) {
+        Pet oldPet = findPetById(petId);
+        Boolean isOwnerChanged = false;
+        oldPet.setName(pet.getName());
+        oldPet.setNotes(pet.getNotes());
+        oldPet.setBirthDate(pet.getBirthDate());
+        oldPet.setNotes(pet.getNotes());
+        Customer customer = oldPet.getCustomer();
+        if(oldPet.getCustomer().getId() != customerId)
+        {
+            customer = customerService.getCustomerById(customerId);
+            oldPet.setCustomer(customer);
+            isOwnerChanged = true;
+        }
+        pet = petRepository.save(oldPet);
+        if(isOwnerChanged)
+        {
+            customer.setPet(pet);
+        }
+        return pet;
+    }
 }

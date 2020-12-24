@@ -43,12 +43,7 @@ public class UserController {
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
         List<Customer> customerList = customerService.getAllCustomers();
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-        for (Customer customer : customerList)
-        {
-            customerDTOList.add(CustomerDTO.convertEntityToCustomerDTO(customer));
-        }
-        return  customerDTOList;
+        return  CustomerDTO.convertEntityListToCustomerDTOList(customerList);
     }
 
     @GetMapping("/customer/pet/{petId}")

@@ -89,4 +89,16 @@ public class ScheduleDTO {
         return scheduleDTO;
     }
 
+
+    public static List<ScheduleDTO> convertEntityListToScheduleDTOList(List<Schedule> scheduleList)
+    {
+        List<ScheduleDTO> scheduleDTOList = new ArrayList<>();
+        for (Schedule schedule : scheduleList)
+        {
+            ScheduleDTO scheduleDTO = ScheduleDTO.convertEntityToScheduleDTO(schedule);
+            scheduleDTOList.add(scheduleDTO);
+        }
+        return scheduleDTOList;
+    }
+
 }

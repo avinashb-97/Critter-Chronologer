@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.service;
 
+import com.udacity.jdnd.course3.critter.model.Customer;
 import com.udacity.jdnd.course3.critter.model.Employee;
 import com.udacity.jdnd.course3.critter.model.Pet;
 import com.udacity.jdnd.course3.critter.model.Schedule;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -23,6 +25,9 @@ public class ScheduleService {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private CustomerService customerService;
 
     public Schedule createSchedule(Schedule schedule, List<Long> petIds, List<Long> employeeIds)
     {
@@ -43,4 +48,24 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
+    public List<Schedule> getAllSchedules() {
+        return scheduleRepository.findAll();
+    }
+
+    public List<Schedule> getScheduleForPet(long petId) {
+        Pet pet = petService.findPetById(petId);
+        return scheduleRepository.findSchedulesByPetsIn(Arrays.asList(pet));
+    }
+
+    public List<Schedule> getScheduleForEmployee(long employeeId)
+    {
+        Employee employee = employeeService.findEmployeeById(employeeId);
+        return scheduleRepository.findSchedulesByEmployeesIn(Arrays.asList(employee));
+    }
+
+    public List<Schedule> getScheduleForCustomer(long customerId)
+    {
+        Customer customer = customerService.getCustomerById(customerId);
+        return scheduleRepository.findSchedulesByPetsIn(customer.getPets());
+    }
 }
